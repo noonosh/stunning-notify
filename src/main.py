@@ -3,7 +3,7 @@ import dotenv
 import logging
 from telegram.ext import (Updater,
                           CommandHandler,
-                          ConversationHandler)
+                          ConversationHandler, MessageHandler, Filters)
 from src.components import start
 
 
@@ -31,10 +31,19 @@ def main():
         entry_points=[
             CommandHandler('start', start.start)
         ],
-        states={},
-        fallbacks=[]
+        states={
+            "POST_AWATING": [
+                MessageHandler(Filters.text & (~ Filters.command) | Filters.photo |
+                               Filters.video | Filters.voice | Filters.audio, start.post)
+            ]
+        },
+        fallbacks=[
+            MessageHandler(Filters.all, start.unsupported)
+        ]
     )
 
+    dispatcher.add_handler(MessageHandler(
+        Filters.chat_type.groups, start.manage_groups))
     dispatcher.add_handler(main_conversation)
 
     updater.start_polling()
