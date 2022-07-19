@@ -1,4 +1,5 @@
 from email import message
+from token import AT
 from telegram import Update
 from telegram.ext import CallbackContext
 from telegram.error import Unauthorized, BadRequest
@@ -51,8 +52,11 @@ def post(update: Update, context: CallbackContext):
 
 
 def manage_groups(update: Update, context: CallbackContext):
-    if update.my_chat_member.new_chat_member.status == 'administrator':
+    try:
+        update.my_chat_member.new_chat_member
         return
+    except AttributeError:
+        pass
 
     group_id = str(update.effective_chat.id)
     file = 'groups.txt'
