@@ -77,5 +77,7 @@ def manage_groups(update: Update, context: CallbackContext):
 
 
 def unsupported(update: Update, context: CallbackContext):
-    update.effective_message.reply_text("Unsupported type of media to send.")
+    update.effective_message.reply_text(
+        "Unsupported type of media to send. Available formats:\n\n- Text\n- Photo\n- Video\n- Audio (mp3)\n- Voice messages\n\n<b>Beware!</b> All messages sent to bot will be copied EXACTLY THE SAME to all available groups",
+        parse_mode='HTML')
     return start(update, context)
