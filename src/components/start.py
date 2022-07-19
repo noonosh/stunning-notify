@@ -78,3 +78,4 @@ def manage_groups(update: Update, context: CallbackContext):
 
 def unsupported(update: Update, context: CallbackContext):
     update.effective_message.reply_text("Unsupported type of media to send.")
+    return start(update, context)
