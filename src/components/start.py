@@ -27,7 +27,7 @@ def post(update: Update, context: CallbackContext):
     message = update.effective_message
     group_ids = get_groups(FILE)
 
-    if group_ids is 1:
+    if group_ids is 1 or len(group_ids) == 0:
         update.effective_message.reply_text("There are no groups to send.")
         return
 
