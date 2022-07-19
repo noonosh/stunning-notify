@@ -3,7 +3,7 @@ import dotenv
 import logging
 from telegram.ext import (Updater,
                           CommandHandler,
-                          ConversationHandler, MessageHandler, Filters)
+                          ConversationHandler, MessageHandler, Filters, PicklePersistence)
 from src.components import start
 
 
@@ -24,7 +24,8 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    updater = Updater(os.environ['BOT_TOKEN'])
+    pers = PicklePersistence(filename='PERSISTENCE')
+    updater = Updater(os.environ['BOT_TOKEN'], persistence=pers)
     dispatcher = updater.dispatcher
 
     main_conversation = ConversationHandler(
@@ -39,7 +40,9 @@ def main():
         },
         fallbacks=[
             MessageHandler(Filters.all, start.unsupported)
-        ]
+        ],
+        name='main',
+        persistent=True
     )
 
     dispatcher.add_handler(MessageHandler(
