@@ -51,6 +51,9 @@ def post(update: Update, context: CallbackContext):
 
 
 def manage_groups(update: Update, context: CallbackContext):
+    if update.my_chat_member.new_chat_member.status == 'administrator':
+        return
+
     group_id = str(update.effective_chat.id)
     file = 'groups.txt'
 

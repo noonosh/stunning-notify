@@ -34,8 +34,8 @@ def main():
         ],
         states={
             "POST_AWATING": [
-                MessageHandler(Filters.text & (~ Filters.command) | Filters.photo |
-                               Filters.video | Filters.voice | Filters.audio, start.post)
+                MessageHandler(Filters.photo | Filters.video | Filters.voice |
+                               Filters.audio | Filters.text & (~ Filters.command), start.post)
             ]
         },
         fallbacks=[
