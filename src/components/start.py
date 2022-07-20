@@ -1,9 +1,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext
-from telegram.error import Unauthorized, BadRequest
-from src.constants import ADMIN_IDS, BOT_ID
+from src.constants import ADMIN_IDS
 import os
-import time
 
 ROOT_DIR = os.path.dirname(os.path.abspath('bot.py'))
 FILE = ROOT_DIR + '/' + 'groups.txt'

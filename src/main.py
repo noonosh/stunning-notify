@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     pers = PicklePersistence(filename='PERSISTENCE')
-    updater = Updater(os.environ['BOT_TOKEN'], persistence=pers)
+    updater = Updater(os.environ['BOT_TOKEN'])
     dispatcher = updater.dispatcher
 
     main_conversation = ConversationHandler(
@@ -41,12 +41,10 @@ def main():
         fallbacks=[
             MessageHandler(Filters.all, start.unsupported)
         ],
-        name='main',
-        persistent=True
+        name='main'
+        # persistent=True
     )
 
-    dispatcher.add_handler(MessageHandler(
-        Filters.chat_type.groups, start.manage_groups))
     dispatcher.add_handler(main_conversation)
 
     updater.start_polling()
