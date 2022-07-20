@@ -15,8 +15,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Groups tracking file
-groups.txt
+# Groups DB
+notify.db
+
 
 PERSISTENCE
 
